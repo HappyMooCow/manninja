@@ -1,30 +1,21 @@
-$(function(){
-	var emailId = '#email';
-	var passwordId = '#password';
-
-	$('#login').submit(function(event){
-		event.preventDefault();
-		var data = {		
-			email: $(this).find('#email').val(),
-			password: $(this).find('#password').val()
-		}
-		
-		if(!data.email || !data.password) {
-			$('#loginError').html('enter a username and password');
-		}
-
+﻿$(document).ready(function () {
+	$('#login').submit(function(e){
+		e.preventDefault();
 		$.ajax({
-			url:'/auth/signin', 
-			data:data,
-			method: 'POST'
-			})
-			.error(function(data){
-				$('#loginError').html(data.message || data || 'unknown error');
-			})
+			method: 'POST',
+			url: '/auth/signin',
+			data: {
+				email: $('#email').val(),
+				password: $('#password').val()
+			}})
 			.success(function(user){
 				window.user = user;
-				$('.load').fadeIn(600);
 				window.location.assign('/');
-			});
-		});
-})
+			})
+			.error(function() {
+				console.log('login failure');
+			})
+	});    
+});
+
+

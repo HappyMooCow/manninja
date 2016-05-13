@@ -1,0 +1,134 @@
+﻿"use strict"
+
+// adding sub items to items is causing the affected menu buttons to grow 10px vertically, fix
+define(['jquery-2.2.3.min', 'app/class/events'], function($, ev) {
+        var submenu = $('<div>', { class: 'col-md-1 col-md-offset-1 menu-submenu' }).appendTo('body');
+        var base = $('<div>', { class: 'menu' });
+        var header = $('<div>', { class: 'menu-header' }).appendTo(base);
+        var brand = $('<a>', { class: 'navbar-brand', href: '#', text: text }).appendTo(header);
+        var sections = new Array(
+                $('<div>', { class: 'btn-group-vertical menu-group' }).appendTo(base),
+                $('<div>', { class: 'btn-group-vertical menu-group' }).appendTo(base),
+                $('<div>', { class: 'btn-group-vertical menu-group-last' }).appendTo(base)
+            );
+        
+
+        base.resize(function () {
+            sections[sections.length - 1].width(base.width());
+        })
+        
+        
+        function renderSubMenu(name) {
+            let _sub = $('<ul>', {
+                class: 'sub-menu ' + name,
+            })
+            return _sub
+        }
+        function renderMenuItem(item) {
+            let _out = $('<button>', { class: 'btn btn-default', text: item.name, id: item.name })
+                .click(function () { if (item.href) { item.href() } })
+                .data('ref', item.ref)                
+
+            if (item.options.length > 0) {                
+                let _sub = renderSubMenu(item.name)
+                    .appendTo(_out);
+
+                for (var i = 0; i < item.options.length; i++) {
+                    _sub.append(renderMenuItem(item.options[i]));
+                }
+            }
+
+            bindEventHandlers(_out);
+            return _out;
+        }
+        function bindEventHandlers(target) {
+            $(target).click(function () {
+                submenu.html($(target).children('ul').clone(true));
+                submenu.animate({ 'width': 'toggle' }, 250);
+                
+                event.stopPropagation();
+            })
+
+        }
+        function removeMenuItem(object) {            
+            let items = $(base).find('button');
+
+            items.each(function () {
+                try{
+                    if ($(this).data('ref').is(object)) {
+                        $(this).remove();
+                    }
+                }
+                catch (e) {
+                    
+                }
+            })
+        }
+
+        this.DOM = (function(){return base });        
+
+        this.render = function (target) {
+            $(target).append(this.DOM);
+        }        
+        this.remove = function (object) {
+            removeMenuItem(object);
+        }
+
+        this.addMenuItem = function (group, item) {
+            let list = sections[group]
+            list.append(renderMenuItem(item));
+        }
+
+        this.appendToMenuItem = function (name, item) {
+            let ss = '#' + name,
+                list = $(ss, base).find('ul');
+
+            if (!list.length) {                
+                let temp = $(base).find(ss);
+
+                list = renderSubMenu(name)
+                .appendTo(temp);
+            }
+
+            list.append(renderMenuItem(item));
+        }
+    }
+
+
+ 	var events = new ev(); 
+
+	var menuItem = function (options) {
+		let out = {};
+		if(options) {
+			out.name = options.name || 'no_name';
+			out.options = options.options || [];
+			href: options.href || function(){};
+			ref: options.ref || {};	
+		}
+		else {return}
+
+		return out;
+    	}
+
+    	var menuItemFromType = function (type, click) {        
+        	let t = new menuItem({
+			name: type.name,
+			href: click,
+			ref: type
+		});
+        	return t;
+    	}
+
+	var menuItemFromForm = function (form, click) {
+		var t = new Menu.MenuItem({
+			name: form.title,
+			href: click,
+			ref: form
+		});
+		return t;
+	    }
+
+    return{
+
+} 
+});

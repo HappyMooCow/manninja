@@ -3,18 +3,22 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-var session = require('express-session');
-var DocumentDBSessionStore = require('express-session-documentdb');
 var marked = require('marked-engine');
 var DocDB = require('./framework/docDB');
 
+
+var session = require('express-session');
+var DocumentDBSessionStore = require('express-session-documentdb');
+var sessionMiddleware = {};
+var passport = require('passport');
+
 var app = express();
+
+var clients = {};
+	
 
 //globals
 docDB = null;
-passport = require('passport');
-
-app.set('port', process.env.PORT || 3000);
 
 // simple html view engine
 app.engine('html', function (filePath, options, callback) { 
@@ -41,7 +45,14 @@ if(fs.existsSync('./settings.json')) {
 
 if(siteConfig.initialized) {
     docDB = new DocDB(siteConfig.documentdb);
-    app.use(session({ secret: 'azure ermahgerd', saveUninitialized: true, resave: true, store: new DocumentDBSessionStore(siteConfig.documentdb) }));	
+	sessionMiddleware = session({ 
+	secret: 'azure ermahgerd', 
+	saveUninitialized: true, 
+	resave: true, 
+	store: new DocumentDBSessionStore(siteConfig.documentdb),
+	cookie: {_expires :6 * 60  * 60 * 1000 },
+	});
+    app.use(sessionMiddleware);	
     require('./framework/config')(passport);
     app.use(passport.initialize());
     app.use(passport.session());         
@@ -73,6 +84,22 @@ app.use(function(err, req, res, next){
   res.status(500).send('Error');
 });
 
-var server = app.listen(app.get('port'), function() {
-});
 
+var http = require('http').createServer(app);
+
+var io = require('socket.io')(http)
+	.use(function(socket, next){
+		sessionMiddleware(socket.request, {}, next);
+		console.log('middleware function run');
+	})
+	.on('connection', function(socket) {
+		var userId = socket.request.session.passport.user;
+		console.log(userId + " has connected");
+		clients[socket.id] = userId;
+		socket.on('disconnect', function() {
+			console.log(clients[socket.id] + " has disconnected");
+			delete clients[socket.id];
+		});
+	});
+
+http.listen(3000);

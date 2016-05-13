@@ -37,11 +37,12 @@
     "moment": "*",
     "socket.io": ">= 1.0.0",
     "marked-engine": "*",
-    "documentdb": "*"
+    "documentdb": "*",
+    "http": "0.0.0"
   },
   "keywords": [
     "azure",
-	"documentdb",
+    "documentdb",
     "passport",
     "express",
     "session"

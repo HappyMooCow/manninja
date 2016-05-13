@@ -1,54 +1,34 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">	
-    <title>My Site</title>
-    <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="/css/style.css" />	
-	<link rel="stylesheet" type="text/css" href="/css/offcanvas.css" />
+<!DOCTYPE html>
+<HTML>
+	<HEAD>
+		<title>Manufacture.ninja</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/index.css">
+	</HEAD>
 
-    <!-- libs -->
-	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>    
-    <script src='https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'></script>
+	<BODY class="container-fluid no-padding">		
+		<div class="row-fluid" id="row1"></div>
 
-    <!-- app -->
-	<script src='/js/app/ajax.js'></script>
-	<script src='/js/app/main.js'></script>
+		<!-- load dependencies -->
+		<script data-main="js/common" src="js/lib/require.js"></script>
 
-</head>
-<body>
-    <nav role="navigation" class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <div class="navbar-brand">My Site</div>
-                <button type="button" id="navButton" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a id="homeLink" href="/">Home</a></li>
-                    <li><a id="docLink" href="#/documentation">Documentation</a></li>
-                    <li><a id="logoutLink" href="#logout">Sign Out</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-	<div id="content-wrapper">
-		<div id="content">
-            <div id="main-content" class="row">
-                <div class="col-sm-12">
+		<!-- page script -->
+		<script type="text/javascript">
+			require(['app/ca/main', 'app/display/menu', 'app/display/viewport', 'app/class/main'], function(Ca, Menu, Viewport, Classes) {
+				var ca  = new Ca()
+				var menu = new Menu();
+				var viewport = new Viewport();
+				var classes = Classes;
 
-                </div>
-            </div>
-		</div>
-	</div>
-</body>
-</html>	
+				menu.addMenuItem(0, new menu.menuItem({
+					name: 'New' }));
+
+				menu.addMenuItem(0, new menu.menuItem({
+					name: 'Open' }));
+
+				menu.addMenuItem(2, new menu.menuItem({
+					name: 'Admin' }));
+			});
+		</script>
+	</BODY>
+</HTML>
