@@ -1,0 +1,45 @@
+
+div.login-base {
+  border-radius: 10px;
+  background-color: white;
+  position: absolute;
+  width: 20vw;
+  height: 66vh;
+  left: 40vw;
+  top:16.5vh;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.login-base form {
+  position:absolute;
+  width: 80%;
+  left: 10%;
+  top: 20%;
+}
+
+.login-header {  
+  display:table;
+  width:100%;
+  height: 15%;
+  background-color: #006dcc;
+  border-radius: 10px 10px 0px 0px;
+  text-align: center;
+  line-height:15%;
+}
+
+.login-header span {  
+  display: table-cell;
+  vertical-align:middle;
+  color: white;
+  font-size: 16pt;
+  line-height:normal;
+}
+
+.load {
+	position:fixed;
+	width: 100vw;
+	height: 100vh;
+	display: none;
+	z-index: 100;
+	background-color:#006dcc;
+}

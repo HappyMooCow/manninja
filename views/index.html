@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<HTML>
+	<HEAD>
+		<title>Manufacture.ninja</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/index.css">
+	</HEAD>
+
+	<BODY class="container-fluid no-padding">		
+		<div class="row-fluid" id="row1"></div>
+
+		<!-- load dependencies -->
+		<script data-main="js/common" src="js/lib/require.js"></script>
+
+		<!-- page script -->
+		<script type="text/javascript">
+			require(['app/ca/main', 'app/display/menu', 'app/display/viewport', 'app/class/main'], function(Ca, Menu, Viewport, Classes) {
+				var ca  = new Ca()
+				var menu = new Menu();
+				var viewport = new Viewport();
+				var classes = Classes;
+
+				menu.addMenuItem(0, new menu.menuItem({
+					name: 'New' }));
+
+				menu.addMenuItem(0, new menu.menuItem({
+					name: 'Open' }));
+
+				menu.addMenuItem(2, new menu.menuItem({
+					name: 'Admin' }));
+			});
+		</script>
+	</BODY>
+</HTML>

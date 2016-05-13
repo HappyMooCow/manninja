@@ -1,0 +1,111 @@
+﻿body {
+    
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+.no-padding {
+    padding:0;
+}
+
+/* menu widget css*/
+div.menu {
+    position: relative;
+    height: 100vh;
+    width: 100%;    
+    padding:1em;
+    display:block;
+    box-shadow: 1px 0px 5px -1px #888888;
+}
+
+div.menu div.menu-header a {    
+    overflow:hidden;
+    padding:0;
+    padding-bottom:1em;
+    text-align:center;
+}
+
+div.menu a {    
+    width: 10vw;
+    left:0;
+}
+
+div.menu-group {
+    width:inherit;    
+}
+
+div.menu-submenu {
+    position:fixed;
+    display:none;
+    height: 100vh;
+    z-index:99;
+    overflow:hidden;
+    background-color: white;
+    box-shadow: 4px 0px 5px -4px #888888;
+    text-align:center;
+    padding-top:1em;
+}
+
+
+ul.menu-items {    
+    list-style-type:none;
+    width:inherit;
+    padding:0;    
+}
+
+ul.menu-items li {
+    display:inline-block;
+    width:inherit;
+    text-align:center   
+}
+
+div.menu ul button {
+    display:none;    
+}
+
+ul.sub-menu {
+    display:block;
+    padding:0;
+    list-style:none;
+    overflow:hidden;
+}
+
+.menu-group {
+    margin-bottom: 2vh;        
+}
+
+.menu-group-last {
+    position:absolute;
+    bottom: 5vh;
+    display:block;
+    width:85%;
+}
+
+/* notifier classes */
+.notifier {
+    display:none;
+    width: 50vw;
+    position:absolute;
+    z-index:99;
+    left: 25vw;
+    top: 1vw;
+}
